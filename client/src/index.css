@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-900 text-white font-sans;
+}
+
+.sidebar-item {
+  @apply mb-4 text-lg font-medium text-gray-300 hover:text-white cursor-pointer;
+}
