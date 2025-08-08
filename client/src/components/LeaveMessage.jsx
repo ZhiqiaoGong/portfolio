@@ -6,21 +6,29 @@ export default function LeaveMessage({ onMessageSent }) {
   const [status, setStatus] = useState('');
 
   const handleSubmit = async () => {
-    const res = await fetch('http://localhost:3001/api/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, message }),
-    });
-
-    if (res.ok) {
-      setStatus('Message sent!');
-      setName('');
-      setMessage('');
-      onMessageSent?.();
-    } else {
+    try {
+      const res = await fetch('http://localhost:3001/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, message }),
+      });
+  
+      if (res.ok) {
+        setStatus('Message sent!');
+        setName('');
+        setMessage('');
+        onMessageSent?.();
+      } else {
+        const error = await res.json();
+        console.error('Server error:', error);
+        setStatus('Error sending message.');
+      }
+    } catch (err) {
+      console.error('Fetch error:', err);
       setStatus('Error sending message.');
     }
   };
+  
 
   return (
     <div className="p-6 bg-gray-800 border border-gray-700 rounded-lg">

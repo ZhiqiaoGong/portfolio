@@ -27,15 +27,16 @@ export default function MessageSection() {
     <div className="font-semibold">{msg.name}</div>
     <div>{msg.message}</div>
     <div className="text-xs text-gray-400">
-    {new Date(msg.created_at + 'Z').toLocaleString('en-US', {
-    timeZone: 'America/Los_Angeles',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  })}
+    {new Date(msg.created_at.replace(' ', 'T').split('.')[0] + 'Z').toLocaleString('en-US', {
+      timeZone: 'America/Los_Angeles',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    })}
+
     </div>
   </div>
 ))}

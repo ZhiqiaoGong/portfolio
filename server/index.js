@@ -1,47 +1,67 @@
 // server/index.js
+require('dotenv').config(); // 加载 .env 中的数据库连接信息
+
 const express = require('express');
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+const { Pool } = require('pg');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+
+// PostgreSQL 连接池
+const pool = new Pool({
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPORT,
+});
+
+// 初始化表（自动建表）
+pool.query(`
+  CREATE TABLE IF NOT EXISTS messages (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`).catch(err => {
+  console.error('Error creating table:', err);
+});
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// SQLite
-const dbPath = path.resolve(__dirname, 'messages.db');
-const db = new sqlite3.Database(dbPath);
-
-// 初始化表
-db.run(`CREATE TABLE IF NOT EXISTS messages (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  message TEXT NOT NULL,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-)`);
-
-// 添加留言
-app.post('/api/messages', (req, res) => {
+// 添加留言接口
+app.post('/api/messages', async (req, res) => {
   const { name, message } = req.body;
   if (!name || !message) return res.status(400).json({ error: 'Missing name or message' });
 
-  db.run(`INSERT INTO messages (name, message) VALUES (?, ?)`, [name, message], function (err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.status(201).json({ id: this.lastID, name, message });
-  });
+  try {
+    const result = await pool.query(
+      `INSERT INTO messages (name, message) VALUES ($1, $2) RETURNING *`,
+      [name, message]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error('Error inserting message:', err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// 获取所有留言
-app.get('/api/messages', (req, res) => {
-  db.all(`SELECT * FROM messages ORDER BY created_at DESC`, [], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
+// 获取所有留言接口
+app.get('/api/messages', async (req, res) => {
+  try {
+    const result = await pool.query(`SELECT * FROM messages ORDER BY created_at DESC`);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching messages:', err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
+// 启动服务器
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
