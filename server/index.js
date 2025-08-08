@@ -1,5 +1,5 @@
 // server/index.js
-require('dotenv').config(); // 加载 .env 中的数据库连接信息
+require('dotenv').config(); // 加载 .env 或 Render 上的环境变量
 
 const express = require('express');
 const cors = require('cors');
@@ -8,13 +8,12 @@ const { Pool } = require('pg');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// PostgreSQL 连接池
+// 使用 DATABASE_URL 连接 PostgreSQL（兼容 Render）
 const pool = new Pool({
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Render 的 PostgreSQL 需要加这一行
+  },
 });
 
 // 初始化表（自动建表）
