@@ -1,6 +1,26 @@
 export default function ProjectSection() {
     const projects = [
-    {
+      {
+        title: 'Personal Portfolio Website',
+        description:
+          'Developed a modular full-stack portfolio platform using React, Express, and PostgreSQL; supports dynamic project showcases and real-time content updates for 100+ users. Designed scalable DB schema with threaded messaging and composite indexes, reducing query latency from 90ms to 20ms. Implemented RESTful API with server-side validation and deployed via Render with CI/CD.',
+        tags: [
+          'React', 'Tailwind CSS', 'Node.js', 'Express', 'PostgreSQL', 'RESTful API', 'Vercel', 'Render'
+        ],
+      },
+        {
+          title: '3D Streaming System',
+          description:
+            'Built an end-to-end 3D video streaming stack with Node.js signaling (WebSocket), WebRTC publisher/receiver, and Three.js playback; achieved <200ms latency and stable 30 FPS in WebXR.',
+          tags: ['Node.js', 'WebRTC', 'WebSocket', 'Three.js', 'React', 'WebXR'],
+        },
+        {
+          title: 'Steam Gaming Behavior Prediction & Recommendation System',
+          description:
+            'Implemented a personalized recommender combining BPR with a popularity model; tuned thresholds and regularization to improve recall while maintaining precision; added a bias-only baseline for duration prediction.',
+          tags: ['Python', 'NumPy', 'BPR', 'Recommender', 'Model Fusion'],
+        },
+        {
         title: 'Chinese Font Generating System Using GAN',
         description:
             'Built a FastAPI-based font generation system. Improved L1 loss by 40% using GAN and AutoEncoder variants. Enabled distributed training with Docker and Redis.',

@@ -1,29 +1,29 @@
 export default function ExperienceSection() {
     const data = [
-    {
+      {
         time: 'Jun. 2024 – Present',
         title: 'Software Engineer Intern',
         company: 'UCSD Human-centered eXtended Intelligence Lab',
         description:
-        'Built AR medical assistant system on Apple Vision Pro using Unity3D, ARKit, MRTK3. Designed 3D UI with <50ms latency. Built RESTful API and GraphQL backend, cut sensor latency from 300ms to 50ms. Integrated MongoDB + Redis for 100GB+ data. Assisted Swift integration.',
+          'Developed an AR medical assistance system on Apple Vision Pro using Unity3D, ARKit, and MRTK3. Designed interactive 3D UI widgets achieving <50ms input latency. Built RESTful API + GraphQL backend, reducing sensor pipeline delay from 300ms to 50ms. Integrated MongoDB + Redis to handle 100GB+ multimodal medical data. Contributed to Swift-based AVP integration and cross-platform compatibility.',
         tags: ['Unity3D', 'ARKit', 'MRTK3', 'REST API', 'GraphQL', 'MongoDB', 'Redis', 'Swift'],
-        },
-        {
+      },
+      {
         time: 'Jul. 2023 – Sep. 2023',
         title: 'Software Engineer Intern',
         company: 'Baidu Inc (Research Group)',
         description:
-            'Built React + FastAPI model evaluation interface with WebSocket support. Improved model accuracy by 22%. Used PostgreSQL + SQLAlchemy to reduce latency by 50%.',
+          'Built a model evaluation platform with React frontend and FastAPI backend, supporting WebSocket-based real-time interaction. Conducted large-scale LLM benchmarking, improving reasoning accuracy by 22% via prompt optimization. Used PostgreSQL + SQLAlchemy with composite indexing to cut query latency by 50%. Delivered interactive visual analytics for performance comparison against ChatGPT.',
         tags: ['React', 'FastAPI', 'WebSocket', 'PostgreSQL', 'SQLAlchemy', 'Data Visualization'],
-        },
-        {
+      },
+      {
         time: 'Jun. 2021 – Sep. 2022',
         title: 'VR Software Engineer Coop',
         company: 'Shandong Dareway Technology',
         description:
-            'Developed 360° VR tour system with Unity & Node.js. Used FFmpeg to reduce storage by 70%. Designed gaze-based redirected walking for limited-space VR navigation.',
-        tags: ['Unity', 'Node.js', 'FFmpeg', 'VR', 'Redirected Walking'],
-        },
+          'Developed a 360° VR campus tour system using Unity3D and Node.js, enabling dynamic speed adjustment based on walking pace for enhanced immersion. Implemented gaze-based path switching and redirected walking algorithms for small-space VR navigation. Built Node.js + MongoDB backend and optimized video storage via FFmpeg, reducing storage requirements by 70%.',
+        tags: ['Unity3D', 'Node.js', 'FFmpeg', 'VR', 'Redirected Walking', 'MongoDB'],
+      },
     ];
   
     return (
