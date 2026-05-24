@@ -4,10 +4,13 @@ export default function LeaveMessage({ onMessageSent }) {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);  // 新增
 
   const handleSubmit = async () => {
+    setLoading(true);  // 新增
     try {
-      const res = await fetch('http://localhost:3001/api/messages', {
+      const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';  // 新增
+      const res = await fetch(`${API}/api/messages`, {  // 改这行
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, message }),
@@ -26,9 +29,10 @@ export default function LeaveMessage({ onMessageSent }) {
     } catch (err) {
       console.error('Fetch error:', err);
       setStatus('Error sending message.');
+    } finally {
+      setLoading(false);  // 新增
     }
   };
-  
 
   return (
     <div className="p-6 bg-gray-800 border border-gray-700 rounded-lg">
@@ -38,19 +42,22 @@ export default function LeaveMessage({ onMessageSent }) {
         placeholder="Your name"
         className="w-full p-2 mb-2 bg-gray-700 text-white placeholder-gray-200 rounded"
         value={name}
+        maxLength={50}  // 新增
         onChange={e => setName(e.target.value)}
       />
       <textarea
         placeholder="Your message"
         className="w-full p-2 mb-2 bg-gray-700 text-white placeholder-gray-200 rounded"
         value={message}
+        maxLength={500}  // 新增
         onChange={e => setMessage(e.target.value)}
       />
       <button
-        className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded transition"
+        className="bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white px-5 py-2 rounded transition"
         onClick={handleSubmit}
+        disabled={loading}  // 新增
       >
-        Leave Message
+        {loading ? 'Sending...' : 'Leave Message'}  // 改这行
       </button>
       <div className="mt-2 text-sm text-green-400">{status}</div>
     </div>

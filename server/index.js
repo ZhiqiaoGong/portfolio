@@ -36,6 +36,7 @@ app.use(express.json());
 app.post('/api/messages', async (req, res) => {
   const { name, message } = req.body;
   if (!name || !message) return res.status(400).json({ error: 'Missing name or message' });
+  if (name.length > 50 || message.length > 500) return res.status(400).json({ error: 'Input too long' });  // 新增
 
   try {
     const result = await pool.query(
