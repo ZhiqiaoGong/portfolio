@@ -6,8 +6,8 @@ export default function MessageSection() {
 
   const fetchMessages = async () => {
     try {
-      const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';  // 新增
-      const res = await fetch(`${API}/api/messages`);  // 改这行
+      const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';  
+      const res = await fetch(`${API}/api/messages`); 
       const data = await res.json();
       setMessages(data);
     } catch (err) {

@@ -1,28 +1,44 @@
 export default function ExperienceSection() {
     const data = [
       {
-        time: 'Jun. 2024 – Present',
+        time: 'Jan. 2026 – Present',
+        title: 'Web Application Developer',
+        company: 'Party Eight',
+        description:
+          'Analyzed inventory workflows across Shopify and Etsy to identify inefficiencies in product categorization and discoverability. Redesigned the Shopify catalog architecture by replacing text-based search with a structured tag system, enabling consistent cross-category filtering. Designed and implemented a user-friendly navigation UI, customizing Shopify\'s underlying theme code to achieve layouts not supported out of the box.',
+        tags: ['Shopify', 'JavaScript', 'UI Design', 'E-commerce'],
+      },
+      {
+        time: 'Aug. 2025 – Feb. 2026',
+        title: 'Backend Developer Volunteer',
+        company: 'Qualcomm Institute',
+        description:
+          'Designed and implemented the backend of an e-commerce platform for medical assistant kits using Node.js and MongoDB, supporting configurable packages and dynamic pricing. Integrated Stripe Checkout and webhooks for secure payments, handling idempotent order updates and automated workflows. Improved backend performance through Redis caching and optimized MongoDB queries, reducing checkout API latency.',
+        tags: ['Node.js', 'Express', 'MongoDB', 'Redis', 'Stripe API', 'REST API'],
+      },
+      {
+        time: 'Jun. 2024 – Jun. 2025',
         title: 'Software Engineer Intern',
         company: 'UCSD Human-centered eXtended Intelligence Lab',
         description:
-          'Developed an AR medical assistance system on Apple Vision Pro using Unity3D, ARKit, and MRTK3. Designed interactive 3D UI widgets achieving <50ms input latency. Built RESTful API + GraphQL backend, reducing sensor pipeline delay from 300ms to 50ms. Integrated MongoDB + Redis to handle 100GB+ multimodal medical data. Contributed to Swift-based AVP integration and cross-platform compatibility.',
-        tags: ['Unity3D', 'ARKit', 'MRTK3', 'REST API', 'GraphQL', 'MongoDB', 'Redis', 'Swift'],
+          'Built an AI-powered AR medical assistant system supporting real-time multimodal interaction. Implemented WebSocket-based communication for real-time audio streaming between client and backend. Refactored APIs and optimized the WebSocket protocol, significantly reducing round-trip latency and improving system responsiveness.',
+        tags: ['Unity3D', 'C#', 'Node.js', 'WebSocket', 'Redis', 'MongoDB'],
       },
       {
         time: 'Jul. 2023 – Sep. 2023',
         title: 'Software Engineer Intern',
         company: 'Baidu Inc (Research Group)',
         description:
-          'Built a model evaluation platform with React frontend and FastAPI backend, supporting WebSocket-based real-time interaction. Conducted large-scale LLM benchmarking, improving reasoning accuracy by 22% via prompt optimization. Used PostgreSQL + SQLAlchemy with composite indexing to cut query latency by 50%. Delivered interactive visual analytics for performance comparison against ChatGPT.',
-        tags: ['React', 'FastAPI', 'WebSocket', 'PostgreSQL', 'SQLAlchemy', 'Data Visualization'],
+          'Developed an LLM evaluation platform used by internal teams, supporting large-scale prompt testing and model comparison. Built backend services using FastAPI, PostgreSQL, and Redis, optimizing queries with composite indexes and significantly reducing query latency. Improved system throughput by implementing batched processing, supporting stable performance under concurrent workloads.',
+        tags: ['Python', 'FastAPI', 'PostgreSQL', 'Redis'],
       },
       {
         time: 'Jun. 2021 – Sep. 2022',
         title: 'VR Software Engineer Coop',
         company: 'Shandong Dareway Technology',
         description:
-          'Developed a 360° VR campus tour system using Unity3D and Node.js, enabling dynamic speed adjustment based on walking pace for enhanced immersion. Implemented gaze-based path switching and redirected walking algorithms for small-space VR navigation. Built Node.js + MongoDB backend and optimized video storage via FFmpeg, reducing storage requirements by 70%.',
-        tags: ['Unity3D', 'Node.js', 'FFmpeg', 'VR', 'Redirected Walking', 'MongoDB'],
+          'Designed a scalable VR media pipeline, automating panoramic video transcoding and adaptive streaming with FFmpeg, Airflow, and AWS. Deployed containerized jobs on Kubernetes for scalability testing and integrated Unity3D clients with redirected walking, enabling smooth VR campus tour demos.',
+        tags: ['Unity3D', 'C#', 'FFmpeg', 'Airflow', 'AWS', 'Docker', 'Kubernetes'],
       },
     ];
   
