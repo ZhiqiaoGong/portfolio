@@ -4,7 +4,7 @@ export default function ProjectSection() {
       title: 'Personal Portfolio Website',
       github: 'https://github.com/ZhiqiaoGong/portfolio',
       demo: 'https://portfolio-nu-sage-24.vercel.app/',
-      images: ['portfolio-preview.png', 'portfolio-preview-message.png'],
+      // images: ['portfolio-preview.png', 'portfolio-preview-message.png'],
       description:
         'A full-stack portfolio website built with React, Vite, and Tailwind CSS, with an Express + PostgreSQL backend supporting a real-time message board. Deployed on Vercel (frontend) and Render (backend).',
       tags: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'PostgreSQL', 'Vercel', 'Render'],
@@ -105,7 +105,7 @@ export default function ProjectSection() {
                     key={i}
                     src={`/${img}`}
                     alt={`${project.title} screenshot ${i + 1}`}
-                    className="rounded-lg border border-gray-700 w-full object-cover max-h-52"
+                    className="rounded-lg border border-gray-700 w-full object-cover max-h-80"
                   />
                 ))}
               </div>
