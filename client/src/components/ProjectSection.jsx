@@ -105,7 +105,8 @@ export default function ProjectSection() {
                     key={i}
                     src={`/${img}`}
                     alt={`${project.title} screenshot ${i + 1}`}
-                    className="rounded-lg border border-gray-700 w-full object-cover max-h-80"
+                    className="rounded-lg border border-gray-700 w-full"
+                    style={{ maxHeight: '320px', objectFit: 'cover', objectPosition: 'top' }}
                   />
                 ))}
               </div>
