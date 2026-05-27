@@ -5,12 +5,14 @@ import MessageSection from './components/MessageSection'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gray-900 text-white md:flex">
       <Sidebar />
-      <main className="pt-36 md:pt-0 md:ml-64 px-12 py-8 max-w-4xl mx-auto">
-        <ExperienceSection />
-        <ProjectSection />
-        <MessageSection />
+      <main className="pt-36 md:pt-0 flex-1 min-w-0 px-12 py-8">
+        <div className="max-w-3xl mx-auto">
+          <ExperienceSection />
+          <ProjectSection />
+          <MessageSection />
+        </div>
       </main>
     </div>
   )

@@ -1,8 +1,8 @@
 export default function Sidebar() {
   return (
     <>
-      {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 px-6 py-12 fixed top-0 left-0 h-full border-r border-gray-700">
+      {/* Desktop */}
+      <aside className="hidden md:flex flex-col w-64 shrink-0 px-6 py-12 min-h-screen border-r border-gray-700 sticky top-0 self-start">
         <div className="text-3xl font-bold mb-4">Zhiqiao Gong</div>
         <div className="text-gray-400 text-sm mb-6">Full Stack | Backend | XR & HCI</div>
 
@@ -38,7 +38,7 @@ export default function Sidebar() {
         </nav>
       </aside>
 
-      {/* Mobile Header */}
+      {/* Mobile */}
       <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-700 px-6 py-4">
         <div className="flex items-center justify-between mb-2">
           <div className="text-xl font-bold">Zhiqiao Gong</div>
