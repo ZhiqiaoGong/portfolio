@@ -9,7 +9,7 @@ export default function App() {
       <Sidebar />
 
       {/* Mobile Header */}
-      <main className="pt-36 md:pt-0 md:ml-64 p-8 max-w-5xl">
+      <main className="pt-28 md:pt-0 md:ml-64 flex-1 p-8 max-w-5xl">
         <ExperienceSection />
         <ProjectSection />
         <MessageSection />
