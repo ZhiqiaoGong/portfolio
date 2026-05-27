@@ -1,5 +1,5 @@
 // server/index.js
-require('dotenv').config(); // 加载 .env 或 Render 上的环境变量
+require('dotenv').config(); // Load environment variables from .env or Render
 
 const express = require('express');
 const cors = require('cors');
@@ -8,15 +8,15 @@ const { Pool } = require('pg');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// 使用 DATABASE_URL 连接 PostgreSQL（兼容 Render）
+// Connect to PostgreSQL using DATABASE_URL (compatible with Render)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false, // Render 的 PostgreSQL 需要加这一行
+    rejectUnauthorized: false, // Required for Render's PostgreSQL
   },
 });
 
-// 初始化表（自动建表）
+// Initialize table (auto-create if not exists)
 pool.query(`
   CREATE TABLE IF NOT EXISTS messages (
     id SERIAL PRIMARY KEY,
@@ -32,11 +32,10 @@ pool.query(`
 app.use(cors());
 app.use(express.json());
 
-// 添加留言接口
+// POST endpoint to add a new message
 app.post('/api/messages', async (req, res) => {
   const { name, message } = req.body;
   if (!name || !message) return res.status(400).json({ error: 'Missing name or message' });
-  if (name.length > 50 || message.length > 500) return res.status(400).json({ error: 'Input too long' });  // 新增
 
   try {
     const result = await pool.query(
@@ -50,7 +49,7 @@ app.post('/api/messages', async (req, res) => {
   }
 });
 
-// 获取所有留言接口
+// GET endpoint to fetch all messages
 app.get('/api/messages', async (req, res) => {
   try {
     const result = await pool.query(`SELECT * FROM messages ORDER BY created_at DESC`);
@@ -61,7 +60,7 @@ app.get('/api/messages', async (req, res) => {
   }
 });
 
-// 启动服务器
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

@@ -40,7 +40,7 @@ export default function ProjectSection() {
       title: 'AR Assembly Guidance System',
       github: 'https://github.com/ZhiqiaoGong/AR-assembly-interaction-guidance-system',
       demo: null,
-      images: ['arguidance-1.png', 'arguidance-2.png'],
+      images: ['arguidance-1.gif', 'arguidance-2.gif'],
       description:
         "Built an AR guidance system using Unity3D and Vuforia that overlays real-time assembly instructions onto physical objects. Integrated deep learning-based state detection to dynamically update instructions based on the user's progress.",
       tags: ['Unity3D', 'C#', 'Vuforia', 'Deep Learning', 'AR'],
