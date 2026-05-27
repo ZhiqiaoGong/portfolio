@@ -14,7 +14,7 @@ export default function ExperienceSection() {
         company: 'Qualcomm Institute',
         description:
           'Designed and implemented the backend of an e-commerce platform for medical assistant kits using Node.js and MongoDB, supporting configurable packages and dynamic pricing. Integrated Stripe Checkout and webhooks for secure payments, handling idempotent order updates and automated workflows. Improved backend performance through Redis caching and optimized MongoDB queries, reducing checkout API latency.',
-        tags: ['Node.js', 'Express', 'MongoDB', 'Redis', 'Stripe API', 'REST API'],
+        tags: ['Node.js', 'Express', 'MongoDB', 'Stripe API', 'REST API'],
       },
       {
         time: 'Jun. 2024 – Jun. 2025',
