@@ -2,10 +2,10 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop */}
-      <aside className="hidden md:flex flex-col w-64 shrink-0 px-6 py-12 min-h-screen border-r border-gray-700 sticky top-0 self-start">
+      <aside className="hidden md:flex flex-col w-72 shrink-0 px-8 py-12 min-h-screen border-r border-gray-700 sticky top-0 self-start">
         <div className="text-3xl font-bold mb-4">Zhiqiao Gong</div>
         <div className="text-gray-400 text-sm mb-6">Full Stack | Backend | XR & HCI</div>
-
+ 
         <div className="flex gap-4 mb-10">
           <a
             href="https://github.com/ZhiqiaoGong"
@@ -30,7 +30,7 @@ export default function Sidebar() {
             Email
           </a>
         </div>
-
+ 
         <nav className="space-y-4 text-gray-400 text-sm">
           <a href="#experience" className="hover:text-white block">EXPERIENCE</a>
           <a href="#projects" className="hover:text-white block">PROJECTS</a>
