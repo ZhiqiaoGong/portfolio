@@ -8,12 +8,14 @@ export default function App() {
     <div className="min-h-screen bg-gray-900 text-white">
       <Sidebar />
 
-      {/* Mobile Header */}
-      <main className="pt-36 md:pt-0 md:ml-96 p-8 max-w-5xl">
-        <ExperienceSection />
-        <ProjectSection />
-        <MessageSection />
-      </main>
+      <div className="md:flex">
+        <div className="hidden md:block md:w-64 shrink-0" />
+        <main className="pt-36 md:pt-0 flex-1 p-8 max-w-5xl">
+          <ExperienceSection />
+          <ProjectSection />
+          <MessageSection />
+        </main>
+      </div>
     </div>
   )
 }
