@@ -2,7 +2,7 @@
 
 A full-stack portfolio website built with React, Vite, and Tailwind CSS, with an Express + PostgreSQL backend supporting a real-time message board.
 
-🌐 Live: [portfolio-nu-sage-24.vercel.app](https://portfolio-nu-sage-24.vercel.app/)
+🌐 Live: [https://zhiqiaogong-portfolio.vercel.app/](https://zhiqiaogong-portfolio.vercel.app/)
 
 ## Features
 
