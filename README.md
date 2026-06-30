@@ -61,6 +61,7 @@ Frontend runs on `http://localhost:5173`, backend on `http://localhost:3001`.
 portfolio/
 ├── client/          # React frontend
 │   ├── public/      # Static assets and project images
+│   ├── source-media/ # Original high-resolution media (not deployed)
 │   ├── src/
 │   │   └── components/
 │   │       ├── Sidebar.jsx

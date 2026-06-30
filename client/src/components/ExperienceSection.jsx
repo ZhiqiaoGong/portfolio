@@ -43,29 +43,33 @@ export default function ExperienceSection() {
     ];
   
     return (
-      <section id="experience">
-        <h2 className="text-2xl font-semibold mb-6">Experience</h2>
-        <div className="space-y-8">
-          {data.map((item, index) => (
-            <div key={index}>
+      <section id="experience" className="mt-24 scroll-mt-28 md:scroll-mt-8">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Where I’ve worked</p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight">Experience</h2>
+        </div>
+        <div className="space-y-6 border-l border-gray-700 pl-5 sm:pl-7">
+          {data.map((item) => (
+            <article key={`${item.company}-${item.time}`} className="relative rounded-xl border border-gray-800 bg-gray-800/30 p-5 sm:p-6">
+              <span className="absolute -left-[1.75rem] top-7 h-2.5 w-2.5 rounded-full bg-blue-400 ring-4 ring-gray-900 sm:-left-[2.05rem]" aria-hidden="true" />
               <div className="text-sm text-gray-400">{item.time}</div>
-              <div className="text-xl font-semibold mt-1">
+              <h3 className="mt-1 text-xl font-semibold">
                 {item.title} ·{' '}
                 <span className="text-blue-400">{item.company}</span>
-              </div>
-              <p className="text-sm text-gray-300 whitespace-pre-line">{item.description}</p>
+              </h3>
+              <p className="mt-3 leading-relaxed text-gray-300">{item.description}</p>
 
               <div className="flex flex-wrap gap-2 mt-2">
                 {item.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="bg-blue-800 text-white text-xs px-2 py-1 rounded"
+                    className="rounded-full bg-blue-900/70 px-2.5 py-1 text-xs font-medium text-blue-100"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>

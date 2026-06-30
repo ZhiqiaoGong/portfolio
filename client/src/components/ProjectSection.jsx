@@ -4,43 +4,51 @@ export default function ProjectSection() {
       title: 'Personal Portfolio Website',
       github: 'https://github.com/ZhiqiaoGong/portfolio',
       demo: 'https://portfolio-nu-sage-24.vercel.app/',
-      images: [],
+      media: [],
       description:
         'A full-stack portfolio website built with React, Vite, and Tailwind CSS, with an Express + PostgreSQL backend supporting a real-time message board. Deployed on Vercel (frontend) and Render (backend).',
       tags: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'PostgreSQL', 'Vercel', 'Render'],
     },
     {
       title: 'Chinese Font Generation (GAN)',
+      featured: true,
+      priority: 3,
       github: 'https://github.com/ZhiqiaoGong/Pix-Font-Generative-Adversarial-Network',
       demo: null,
-      images: ['OriginalAutoEncoder_test.gif', 'BestGAN_test.gif'],
+      media: ['OriginalAutoEncoder_test.mp4', 'BestGAN_test.mp4'],
       description:
         'Built a deep learning system for Chinese font style transfer using AutoEncoder and multiple GAN variants including CycleGAN and ResNet-based generators. Implemented skip connections and residual blocks to improve training stability and output clarity. Conducted comparative evaluation across architectures, analyzing L1 loss convergence and visual quality on real Chinese font datasets.',
       tags: ['Python', 'PyTorch', 'GAN', 'CycleGAN', 'AutoEncoder', 'ResNet', 'Deep Learning'],
     },
     {
       title: '3D Streaming System',
+      featured: true,
+      priority: 1,
       github: 'https://github.com/ZhiqiaoGong/3D-Streaming-Demo',
       demo: null,
-      images: ['3dstreaming-publisher.png', '3dstreaming-receiver.png'],
+      media: ['3dstreaming-publisher.png', '3dstreaming-receiver.png'],
       description:
         'Built an end-to-end 3D video streaming stack with Node.js signaling server, WebRTC publisher/receiver, and Three.js playback, achieving low-latency stable streaming in WebXR.',
       tags: ['Node.js', 'WebRTC', 'WebSocket', 'Three.js', 'React', 'WebXR'],
     },
     {
       title: 'Manual Implementation of Neural Networks for Retinal Disease Detection',
+      featured: true,
+      priority: 4,
       github: 'https://github.com/ZhiqiaoGong/Manual-Implementation-of-Neural-Networks-for-Retinal-Disease-Detection',
       demo: null,
-      images: ['oct_model_comparison.png', 'oct_densenet_training.png'],
+      media: ['oct_model_comparison.png', 'oct_densenet_training.png'],
       description:
         'Implemented and compared multiple deep learning architectures including CNN, U-Net, ResNet, EfficientNet, and DenseNet for OCT retinal image classification. Evaluated models across conditions including CNV, DME, and Drusen, with comprehensive performance analysis.',
       tags: ['Python', 'PyTorch', 'CNN', 'U-Net', 'DenseNet', 'EfficientNet', 'Medical Imaging'],
     },
     {
       title: 'AR Assembly Guidance System',
+      featured: true,
+      priority: 2,
       github: 'https://github.com/ZhiqiaoGong/AR-assembly-interaction-guidance-system',
       demo: null,
-      images: ['arguidance-1.gif', 'arguidance-2.gif'],
+      media: ['arguidance-1.mp4', 'arguidance-2.mp4'],
       description:
         "Built an AR guidance system using Unity3D and Vuforia that overlays real-time assembly instructions onto physical objects. Integrated deep learning-based state detection to dynamically update instructions based on the user's progress.",
       tags: ['Unity3D', 'C#', 'Vuforia', 'Deep Learning', 'AR'],
@@ -49,7 +57,7 @@ export default function ProjectSection() {
       title: 'Steam Gaming Recommendation System',
       github: null,
       demo: null,
-      images: [],
+      media: [],
       description:
         'Implemented a personalized recommender combining Bayesian Personalized Ranking with a popularity model. Tuned thresholds and regularization to improve recall, and added a bias-only baseline for play duration prediction.',
       tags: ['Python', 'NumPy', 'BPR', 'Recommender Systems'],
@@ -58,22 +66,31 @@ export default function ProjectSection() {
       title: 'LLM-Assisted Medical Diagnosis (PAS)',
       github: null,
       demo: null,
-      images: [],
+      media: [],
       description:
         'Applied GPT-4 to automate structured feature extraction from clinical MRI and ultrasound reports for Placenta Accreta Spectrum diagnosis. Designed and evaluated prompt engineering strategies for pattern analysis and grade prediction, achieving perfect recall on ultrasound markers.',
       tags: ['Python', 'GPT-4', 'Prompt Engineering', 'NLP', 'Medical AI'],
     },
   ];
 
-  return (
-    <section id="projects" className="mt-20">
-      <h2 className="text-2xl font-semibold mb-6">Projects</h2>
-      <div className="space-y-10">
-        {projects.map((project, index) => (
-          <div key={index} className="border-b border-gray-700 pb-8 last:border-0">
+  const orderedProjects = [...projects].sort((a, b) => {
+    if (a.featured && b.featured) return a.priority - b.priority;
+    return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
+  });
 
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-xl font-semibold text-blue-300">{project.title}</span>
+  return (
+    <section id="projects" className="mt-24 scroll-mt-28 md:scroll-mt-8">
+      <div className="mb-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Things I’ve built</p>
+        <h2 className="mt-2 text-3xl font-semibold tracking-tight">Selected Work</h2>
+      </div>
+      <div className="space-y-8">
+        {orderedProjects.map((project) => (
+          <article key={project.title} className="rounded-xl border border-gray-700/80 bg-gray-800/40 p-5 sm:p-7">
+
+            <div className="mb-3 flex flex-wrap items-center gap-3">
+              <h3 className="text-xl font-semibold text-blue-300 sm:text-2xl">{project.title}</h3>
+              {project.featured && <span className="rounded-full bg-blue-900/70 px-2.5 py-1 text-xs font-medium text-blue-100">Featured</span>}
               {project.github && (
                 <a
                   href={project.github}
@@ -96,19 +113,24 @@ export default function ProjectSection() {
               )}
             </div>
 
-            <p className="text-sm text-gray-300 mb-3">{project.description}</p>
+            <p className="mb-5 max-w-3xl leading-relaxed text-gray-300">{project.description}</p>
 
-            {project.images.length > 0 && (
-              <div className={`grid gap-3 mb-3 ${project.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
-                {project.images.map((img, i) => (
-                  <img
-                    key={i}
-                    src={`/${img}`}
-                    alt={`${project.title} screenshot ${i + 1}`}
-                    className="rounded-lg border border-gray-700 w-full"
-                    style={{ maxHeight: '320px', objectFit: 'cover', objectPosition: 'top' }}
-                  />
-                ))}
+            {project.media.length > 0 && (
+              <div className={`mb-5 grid gap-3 ${project.media.length === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'}`}>
+                {project.media.map((item, i) => {
+                  const mediaProps = {
+                    key: item,
+                    className: 'max-h-80 w-full rounded-lg border border-gray-700 object-cover object-top',
+                  };
+
+                  return item.endsWith('.mp4') ? (
+                    <video {...mediaProps} autoPlay loop muted playsInline preload="metadata" aria-label={`${project.title} demo ${i + 1}`}>
+                      <source src={`/${item}`} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img {...mediaProps} src={`/${item}`} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" decoding="async" />
+                  );
+                })}
               </div>
             )}
 
@@ -116,14 +138,14 @@ export default function ProjectSection() {
               {project.tags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="bg-purple-800 text-white text-xs px-2 py-1 rounded"
+                  className="rounded-full bg-purple-900/70 px-2.5 py-1 text-xs font-medium text-purple-100"
                 >
                   {tag}
                 </span>
               ))}
             </div>
 
-          </div>
+          </article>
         ))}
       </div>
     </section>
