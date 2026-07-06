@@ -1,3 +1,5 @@
+import Reveal from './Reveal';
+
 export default function ProjectSection() {
   const projects = [
     {
@@ -80,13 +82,14 @@ export default function ProjectSection() {
 
   return (
     <section id="projects" className="mt-24 scroll-mt-28 md:scroll-mt-8">
-      <div className="mb-8">
+      <Reveal className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Things I’ve built</p>
         <h2 className="mt-2 text-3xl font-semibold tracking-tight">Selected Work</h2>
-      </div>
+      </Reveal>
       <div className="space-y-8">
         {orderedProjects.map((project) => (
-          <article key={project.title} className="rounded-xl border border-gray-700/80 bg-gray-800/40 p-5 sm:p-7">
+          <Reveal key={project.title}>
+          <article className="rounded-xl border border-gray-700/80 bg-gray-800/40 p-5 sm:p-7 transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-gray-800/60 hover:shadow-lg hover:shadow-blue-500/10 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
 
             <div className="mb-3 flex flex-wrap items-center gap-3">
               <h3 className="text-xl font-semibold text-blue-300 sm:text-2xl">{project.title}</h3>
@@ -118,17 +121,14 @@ export default function ProjectSection() {
             {project.media.length > 0 && (
               <div className={`mb-5 grid gap-3 ${project.media.length === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'}`}>
                 {project.media.map((item, i) => {
-                  const mediaProps = {
-                    key: item,
-                    className: 'max-h-80 w-full rounded-lg border border-gray-700 object-cover object-top',
-                  };
+                  const mediaClass = 'max-h-80 w-full rounded-lg border border-gray-700 object-cover object-top';
 
                   return item.endsWith('.mp4') ? (
-                    <video {...mediaProps} autoPlay loop muted playsInline preload="metadata" aria-label={`${project.title} demo ${i + 1}`}>
+                    <video key={item} className={mediaClass} autoPlay loop muted playsInline preload="metadata" aria-label={`${project.title} demo ${i + 1}`}>
                       <source src={`/${item}`} type="video/mp4" />
                     </video>
                   ) : (
-                    <img {...mediaProps} src={`/${item}`} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" decoding="async" />
+                    <img key={item} className={mediaClass} src={`/${item}`} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" decoding="async" />
                   );
                 })}
               </div>
@@ -146,6 +146,7 @@ export default function ProjectSection() {
             </div>
 
           </article>
+          </Reveal>
         ))}
       </div>
     </section>
