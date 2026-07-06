@@ -2,7 +2,7 @@
 
 A full-stack portfolio website built with React, Vite, and Tailwind CSS, with an Express + PostgreSQL backend supporting a real-time message board.
 
-🌐 Live: [https://zhiqiaogong-portfolio.vercel.app/](https://zhiqiaogong-portfolio.vercel.app/)
+🌐 Live: [https://zhiqiaogong.com/](https://zhiqiaogong.com/)
 
 ## Features
 

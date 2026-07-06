@@ -5,7 +5,7 @@ export default function ProjectSection() {
     {
       title: 'Personal Portfolio Website',
       github: 'https://github.com/ZhiqiaoGong/portfolio',
-      demo: 'https://portfolio-nu-sage-24.vercel.app/',
+      demo: 'https://zhiqiaogong.com/',
       media: [],
       description:
         'A full-stack portfolio website built with React, Vite, and Tailwind CSS, with an Express + PostgreSQL backend supporting a real-time message board. Deployed on Vercel (frontend) and Render (backend).',
