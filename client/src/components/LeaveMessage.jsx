@@ -14,7 +14,7 @@ export default function LeaveMessage({ onMessageSent }) {
 
     setLoading(true);  
     try {
-      const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';  
+      const API = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_URL || '');
       const res = await fetch(`${API}/api/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

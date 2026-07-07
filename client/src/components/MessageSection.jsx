@@ -7,8 +7,10 @@ export default function MessageSection() {
 
   const fetchMessages = async () => {
     try {
-      const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';  
-      const res = await fetch(`${API}/api/messages`); 
+      // Production is same-origin (Vercel serverless function); dev can point
+      // VITE_API_URL elsewhere or use `vercel dev`.
+      const API = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_URL || '');
+      const res = await fetch(`${API}/api/messages`);
       if (!res.ok) throw new Error('Failed to fetch messages');
       const data = await res.json();
       setMessages(Array.isArray(data) ? data : []);
