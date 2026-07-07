@@ -220,6 +220,17 @@ function Particles({ roleIndex, reducedMotion, count, hovered }) {
     u.uTime.value += delta;
     u.uDpr.value = state.gl.getPixelRatio();
 
+    // Fill whatever canvas size the layout hands us, within sane bounds
+    let scale = 1;
+    if (groupRef.current) {
+      const target = Math.min(
+        1.45,
+        Math.max(0.8, Math.min(state.viewport.width / 4.8, state.viewport.height / 3.4))
+      );
+      scale = groupRef.current.scale.x + (target - groupRef.current.scale.x) * 0.1;
+      groupRef.current.scale.setScalar(scale);
+    }
+
     const m = morphRef.current;
     if (m.t < 1) {
       m.t = Math.min(1, m.t + delta / MORPH_SECONDS);
@@ -234,7 +245,8 @@ function Particles({ roleIndex, reducedMotion, count, hovered }) {
       _ray.sub(state.camera.position).normalize();
       const dist = -state.camera.position.z / _ray.z;
       _plane.copy(state.camera.position).addScaledVector(_ray, dist);
-      u.uMouse.value.lerp(_plane, 0.2);
+      // uMouse lives in the particles' local space; undo the group scale
+      u.uMouse.value.lerp(_plane.divideScalar(scale), 0.2);
       u.uMouseStrength.value += (0.55 - u.uMouseStrength.value) * 0.08;
     } else {
       u.uMouseStrength.value += (0 - u.uMouseStrength.value) * 0.08;

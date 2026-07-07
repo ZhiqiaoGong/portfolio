@@ -78,7 +78,7 @@ export default function IntroSection() {
         className="pointer-events-none absolute top-10 right-0 h-56 w-56 rounded-full bg-purple-500/10 blur-3xl"
       />
 
-      <Reveal className="relative z-10 xl:max-w-2xl xl:flex-1">
+      <Reveal className="relative z-10 xl:max-w-2xl xl:flex-[2]">
         <p className="mb-4 min-h-[1.5rem] text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
           {typed}
           <span className="typewriter-cursor ml-0.5 inline-block w-[2px] bg-blue-400" aria-hidden="true">
@@ -107,7 +107,7 @@ export default function IntroSection() {
       </Reveal>
 
       {isDesktop && (
-        <div className="relative hidden h-[26rem] xl:block xl:w-[22rem] xl:shrink-0">
+        <div className="relative hidden h-[26rem] xl:block xl:min-w-[18rem] xl:flex-1">
           <Suspense fallback={null}>
             <ParticleHero roleIndex={roleIndex} onAdvance={advanceRole} />
           </Suspense>
