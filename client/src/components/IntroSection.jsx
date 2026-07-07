@@ -7,7 +7,7 @@ const ROLES = ['Backend Engineer', 'Full-Stack Developer', 'XR Systems Builder']
 
 // Types out `word`, pauses, deletes, then asks the parent to advance the role.
 // Resets cleanly if `word` changes mid-cycle (e.g. user clicks the particles).
-function useTypewriter(word, onCycleComplete, typeSpeed = 70, deleteSpeed = 35, pauseMs = 3500) {
+function useTypewriter(word, onCycleComplete, typeSpeed = 50, deleteSpeed = 22, pauseMs = 1800) {
   const [text, setText] = useState('');
   const [deleting, setDeleting] = useState(false);
 
