@@ -1,40 +1,74 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import Reveal from './Reveal';
+
+const ParticleHero = lazy(() => import('./ParticleHero'));
 
 const ROLES = ['Backend Engineer', 'Full-Stack Developer', 'XR Systems Builder'];
 
-function useTypewriter(words, typeSpeed = 70, deleteSpeed = 35, pauseMs = 1800) {
-  const [wordIndex, setWordIndex] = useState(0);
+// Types out `word`, pauses, deletes, then asks the parent to advance the role.
+// Resets cleanly if `word` changes mid-cycle (e.g. user clicks the particles).
+function useTypewriter(word, onCycleComplete, typeSpeed = 70, deleteSpeed = 35, pauseMs = 3500) {
   const [text, setText] = useState('');
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const word = words[wordIndex % words.length];
+    setText('');
+    setDeleting(false);
+  }, [word]);
+
+  useEffect(() => {
     let timeout;
-
-    if (!deleting && text === word) {
+    if (deleting) {
+      if (text === '') {
+        // Stale pause->delete transition landed after an external role switch.
+        // Recover without advancing, otherwise a click can skip two roles.
+        setDeleting(false);
+      } else if (text.length === 1) {
+        // Advance inside the timeout so a word change cancels it via cleanup.
+        timeout = setTimeout(() => {
+          setText('');
+          setDeleting(false);
+          onCycleComplete();
+        }, deleteSpeed);
+      } else {
+        timeout = setTimeout(() => setText(text.slice(0, -1)), deleteSpeed);
+      }
+    } else if (text === word) {
       timeout = setTimeout(() => setDeleting(true), pauseMs);
-    } else if (deleting && text === '') {
-      setDeleting(false);
-      setWordIndex((i) => (i + 1) % words.length);
+    } else if (word.startsWith(text)) {
+      timeout = setTimeout(() => setText(word.slice(0, text.length + 1)), typeSpeed);
     } else {
-      timeout = setTimeout(
-        () => setText(word.slice(0, text.length + (deleting ? -1 : 1))),
-        deleting ? deleteSpeed : typeSpeed
-      );
+      // Word changed mid-type; restart cleanly.
+      setText('');
     }
-
     return () => clearTimeout(timeout);
-  }, [text, deleting, wordIndex, words, typeSpeed, deleteSpeed, pauseMs]);
+  }, [text, deleting, word, onCycleComplete, typeSpeed, deleteSpeed, pauseMs]);
 
   return text;
 }
 
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 1280px)');
+    const update = () => setIsDesktop(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+
+  return isDesktop;
+}
+
 export default function IntroSection() {
-  const typed = useTypewriter(ROLES);
+  const [roleIndex, setRoleIndex] = useState(0);
+  const advanceRole = useCallback(() => setRoleIndex((i) => (i + 1) % ROLES.length), []);
+  const typed = useTypewriter(ROLES[roleIndex], advanceRole);
+  const isDesktop = useIsDesktop();
 
   return (
-    <section id="about" className="relative max-w-3xl scroll-mt-28 md:scroll-mt-8">
+    <section id="about" className="relative max-w-3xl scroll-mt-28 md:scroll-mt-8 xl:flex xl:max-w-none xl:items-center xl:gap-6">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl"
@@ -44,7 +78,7 @@ export default function IntroSection() {
         className="pointer-events-none absolute top-10 right-0 h-56 w-56 rounded-full bg-purple-500/10 blur-3xl"
       />
 
-      <Reveal>
+      <Reveal className="relative z-10 xl:max-w-2xl xl:flex-1">
         <p className="mb-4 min-h-[1.5rem] text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
           {typed}
           <span className="typewriter-cursor ml-0.5 inline-block w-[2px] bg-blue-400" aria-hidden="true">
@@ -71,6 +105,14 @@ export default function IntroSection() {
           </a>
         </div>
       </Reveal>
+
+      {isDesktop && (
+        <div className="relative hidden h-[26rem] xl:block xl:w-[22rem] xl:shrink-0">
+          <Suspense fallback={null}>
+            <ParticleHero roleIndex={roleIndex} onAdvance={advanceRole} />
+          </Suspense>
+        </div>
+      )}
     </section>
   )
 }

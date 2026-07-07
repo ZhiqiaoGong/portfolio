@@ -1,4 +1,43 @@
+import { useEffect, useRef } from 'react';
 import Reveal from './Reveal';
+
+// Fills the timeline rail in sync with how far the list has scrolled into view.
+function useTimelineProgress() {
+  const listRef = useRef(null);
+  const fillRef = useRef(null);
+
+  useEffect(() => {
+    const list = listRef.current;
+    const fill = fillRef.current;
+    if (!list || !fill) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      fill.style.height = '100%';
+      return;
+    }
+
+    let raf = 0;
+    const update = () => {
+      const rect = list.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (window.innerHeight * 0.7 - rect.top) / rect.height));
+      fill.style.height = `${progress * 100}%`;
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return { listRef, fillRef };
+}
 
 export default function ExperienceSection() {
     const data = [
@@ -44,13 +83,22 @@ export default function ExperienceSection() {
       },
     ];
   
+    const { listRef, fillRef } = useTimelineProgress();
+
     return (
       <section id="experience" className="mt-24 scroll-mt-28 md:scroll-mt-8">
         <Reveal className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Where I’ve worked</p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight">Experience</h2>
         </Reveal>
-        <div className="space-y-6 border-l border-gray-700 pl-5 sm:pl-7">
+        <div ref={listRef} className="relative space-y-6 pl-5 sm:pl-7">
+          <div aria-hidden="true" className="absolute left-0 top-0 h-full w-px bg-gray-700" />
+          <div
+            ref={fillRef}
+            aria-hidden="true"
+            className="absolute left-0 top-0 w-px bg-gradient-to-b from-blue-400 to-purple-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]"
+            style={{ height: 0 }}
+          />
           {data.map((item, index) => (
             <Reveal key={`${item.company}-${item.time}`} delay={Math.min(index * 90, 270)}>
             <article className="group relative rounded-xl border border-gray-800 bg-gray-800/30 p-5 sm:p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-gray-800/50 hover:shadow-lg hover:shadow-blue-500/10 motion-reduce:transition-none motion-reduce:hover:translate-y-0">

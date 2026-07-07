@@ -10,6 +10,16 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Recommended Lenis styles: let it drive the scroll when active */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
 .sidebar-item {
   @apply mb-4 text-lg font-medium text-gray-300 hover:text-white cursor-pointer;
 }

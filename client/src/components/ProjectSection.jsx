@@ -1,5 +1,66 @@
 import Reveal from './Reveal';
 
+const CARD_HOVER =
+  'transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-gray-800/60 hover:shadow-lg hover:shadow-blue-500/10 motion-reduce:transition-none motion-reduce:hover:translate-y-0';
+
+function ProjectLinks({ project }) {
+  return (
+    <>
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-gray-400 border border-gray-600 rounded px-2 py-0.5 hover:text-white hover:border-gray-400 transition"
+        >
+          GitHub
+        </a>
+      )}
+      {project.demo && (
+        <a
+          href={project.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-gray-400 border border-gray-600 rounded px-2 py-0.5 hover:text-white hover:border-gray-400 transition"
+        >
+          Live
+        </a>
+      )}
+    </>
+  );
+}
+
+function ProjectTags({ tags }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span key={tag} className="rounded-full bg-purple-900/70 px-2.5 py-1 text-xs font-medium text-purple-100">
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ProjectMedia({ project, className }) {
+  const mediaClass =
+    'w-full max-h-56 rounded-lg border border-gray-700 object-cover object-top transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100';
+
+  return (
+    <div className={className}>
+      {project.media.map((item, i) =>
+        item.endsWith('.mp4') ? (
+          <video key={item} className={mediaClass} autoPlay loop muted playsInline preload="metadata" aria-label={`${project.title} demo ${i + 1}`}>
+            <source src={`/${item}`} type="video/mp4" />
+          </video>
+        ) : (
+          <img key={item} className={mediaClass} src={`/${item}`} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" decoding="async" />
+        )
+      )}
+    </div>
+  );
+}
+
 export default function ProjectSection() {
   const projects = [
     {
@@ -75,10 +136,10 @@ export default function ProjectSection() {
     },
   ];
 
-  const orderedProjects = [...projects].sort((a, b) => {
-    if (a.featured && b.featured) return a.priority - b.priority;
-    return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
-  });
+  const featured = projects
+    .filter((p) => p.featured)
+    .sort((a, b) => a.priority - b.priority);
+  const others = projects.filter((p) => !p.featured);
 
   return (
     <section id="projects" className="mt-24 scroll-mt-28 md:scroll-mt-8">
@@ -86,66 +147,42 @@ export default function ProjectSection() {
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Things I’ve built</p>
         <h2 className="mt-2 text-3xl font-semibold tracking-tight">Selected Work</h2>
       </Reveal>
+
       <div className="space-y-8">
-        {orderedProjects.map((project) => (
+        {featured.map((project, index) => (
           <Reveal key={project.title}>
-          <article className="rounded-xl border border-gray-700/80 bg-gray-800/40 p-5 sm:p-7 transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-gray-800/60 hover:shadow-lg hover:shadow-blue-500/10 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-
-            <div className="mb-3 flex flex-wrap items-center gap-3">
-              <h3 className="text-xl font-semibold text-blue-300 sm:text-2xl">{project.title}</h3>
-              {project.featured && <span className="rounded-full bg-blue-900/70 px-2.5 py-1 text-xs font-medium text-blue-100">Featured</span>}
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-gray-400 border border-gray-600 rounded px-2 py-0.5 hover:text-white hover:border-gray-400 transition"
-                >
-                  GitHub
-                </a>
-              )}
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-gray-400 border border-gray-600 rounded px-2 py-0.5 hover:text-white hover:border-gray-400 transition"
-                >
-                  Live
-                </a>
-              )}
-            </div>
-
-            <p className="mb-5 max-w-3xl leading-relaxed text-gray-300">{project.description}</p>
-
-            {project.media.length > 0 && (
-              <div className={`mb-5 grid gap-3 ${project.media.length === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'}`}>
-                {project.media.map((item, i) => {
-                  const mediaClass = 'max-h-80 w-full rounded-lg border border-gray-700 object-cover object-top';
-
-                  return item.endsWith('.mp4') ? (
-                    <video key={item} className={mediaClass} autoPlay loop muted playsInline preload="metadata" aria-label={`${project.title} demo ${i + 1}`}>
-                      <source src={`/${item}`} type="video/mp4" />
-                    </video>
-                  ) : (
-                    <img key={item} className={mediaClass} src={`/${item}`} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" decoding="async" />
-                  );
-                })}
+            <article
+              className={`group rounded-xl border border-gray-700/80 bg-gray-800/40 p-5 sm:p-7 md:grid md:grid-cols-5 md:items-center md:gap-8 ${CARD_HOVER}`}
+            >
+              <div className={`md:col-span-3 ${index % 2 === 1 ? 'md:order-2' : ''}`}>
+                <div className="mb-3 flex flex-wrap items-center gap-3">
+                  <h3 className="text-xl font-semibold text-blue-300 sm:text-2xl">{project.title}</h3>
+                  <span className="rounded-full bg-blue-900/70 px-2.5 py-1 text-xs font-medium text-blue-100">Featured</span>
+                  <ProjectLinks project={project} />
+                </div>
+                <p className="mb-5 leading-relaxed text-gray-300">{project.description}</p>
+                <ProjectTags tags={project.tags} />
               </div>
-            )}
+              <ProjectMedia
+                project={project}
+                className={`mt-5 space-y-3 md:col-span-2 md:mt-0 ${index % 2 === 1 ? 'md:order-1' : ''}`}
+              />
+            </article>
+          </Reveal>
+        ))}
+      </div>
 
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="rounded-full bg-purple-900/70 px-2.5 py-1 text-xs font-medium text-purple-100"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-          </article>
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        {others.map((project) => (
+          <Reveal key={project.title} className="h-full">
+            <article className={`flex h-full flex-col rounded-xl border border-gray-700/80 bg-gray-800/40 p-5 ${CARD_HOVER}`}>
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <h3 className="text-lg font-semibold text-blue-300">{project.title}</h3>
+                <ProjectLinks project={project} />
+              </div>
+              <p className="mb-4 flex-1 text-sm leading-relaxed text-gray-300">{project.description}</p>
+              <ProjectTags tags={project.tags} />
+            </article>
           </Reveal>
         ))}
       </div>
