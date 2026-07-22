@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar'
 import Spotlight from './components/Spotlight'
 import IntroSection from './components/IntroSection'
 import ExperienceSection from './components/ExperienceSection'
+import SkillsSection from './components/SkillsSection'
 import ProjectSection from './components/ProjectSection'
 import MessageSection from './components/MessageSection'
 
@@ -28,6 +29,7 @@ export default function App() {
       <main className="min-w-0 flex-1 px-6 pb-12 pt-28 sm:px-8 md:px-14 md:py-16 lg:px-20">
         <IntroSection />
         <ExperienceSection />
+        <SkillsSection />
         <ProjectSection />
         <MessageSection />
       </main>
