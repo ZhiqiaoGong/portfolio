@@ -6,16 +6,20 @@ const GROUPS = [
     items: ['TypeScript / JavaScript', 'Go', 'Python', 'SQL', 'C#', 'C / C++'],
   },
   {
-    label: 'Backend & Data',
-    items: ['Node.js', 'Express', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'Kafka', 'REST API', 'WebSocket'],
+    label: 'Backend',
+    items: ['Node.js', 'Express', 'FastAPI', 'REST API', 'WebSocket', 'Stripe API', 'JWT', 'Zod'],
   },
   {
-    label: 'Frontend',
-    items: ['React', 'Next.js', 'Tailwind CSS', 'MUI'],
+    label: 'Data & Messaging',
+    items: ['PostgreSQL', 'MongoDB', 'Redis', 'Kafka', 'SQLite'],
+  },
+  {
+    label: 'Frontend & XR',
+    items: ['React', 'Next.js', 'Tailwind CSS', 'MUI', 'HTML / CSS', 'Unity3D', 'MRTK3'],
   },
   {
     label: 'Cloud & Tooling',
-    items: ['AWS (EC2, S3)', 'Docker', 'Docker Compose', 'CI/CD', 'FFmpeg', 'Git'],
+    items: ['AWS (EC2, S3)', 'Vercel', 'Render', 'Docker', 'GitHub Actions', 'CI/CD'],
   },
 ];
 

@@ -101,7 +101,7 @@ export default function ExperienceSection() {
     const data = [
       {
         time: 'Jan. 2026 – Present',
-        title: 'Software Engineer',
+        title: 'Web Application Developer',
         company: 'Party Eight',
         location: 'Hayward, CA',
         github: 'https://github.com/ZhiqiaoGong/inventory-sync-system',
@@ -131,8 +131,8 @@ export default function ExperienceSection() {
       },
       {
         time: 'Jun. 2024 – Jun. 2025',
-        title: 'Software Engineer Intern / Research Assistant',
-        company: 'UCSD Human-centered eXtended Intelligence Lab',
+        title: 'Software Engineer Intern',
+        company: 'UCSD Human-centered eXtended Intelligence Lab / Design Lab',
         location: 'San Diego, CA',
         lead: 'An AI-powered AR medical assistant on a mixed-reality headset.',
         bullets: [
@@ -152,18 +152,6 @@ export default function ExperienceSection() {
           'PostgreSQL results store with unique-key idempotent resume, and a composite index cutting query p95 by **96% (19 ms → 0.7 ms over 300k rows)**; served over FastAPI + Redis with SSE live progress.',
         ],
         tags: ['Python', 'asyncio', 'httpx', 'FastAPI', 'PostgreSQL', 'Redis'],
-      },
-      {
-        time: 'Jun. 2021 – Sep. 2022',
-        title: 'VR Software Engineer Co-op',
-        company: 'Shandong Dareway Technology',
-        location: 'Shandong, China',
-        lead: 'A fleet 360° VR training-video system with a walking-VR client.',
-        bullets: [
-          "Unity C# client with equirectangular playback, gaze-driven branch selection at route forks, and playback speed that follows the user's walking pace; FFmpeg HLS packaging with checksum-verified ingest.",
-          'Durable job orchestration on PostgreSQL — transactional outbox and state machine with FOR UPDATE SKIP LOCKED leases and crash recovery — with idempotent telemetry sustaining a median **16,400 events/s**.',
-        ],
-        tags: ['Unity3D', 'C#', 'PostgreSQL', 'FFmpeg'],
       },
     ];
   
