@@ -64,6 +64,26 @@ function ProjectMedia({ project, className }) {
 export default function ProjectSection() {
   const projects = [
     {
+      title: 'Yifa — ZH-EN Translation Relay for claude.ai',
+      featured: true,
+      priority: 1,
+      github: 'https://github.com/ZhiqiaoGong/Claude-ZH-EN-Relay',
+      demo: null,
+      media: ['yifa-main.mp4', 'yifa-modes.mp4'],
+      description:
+        "A shipped Chrome extension (Manifest V3) that cuts token cost on claude.ai, where Chinese runs ~1.5–2× the tokens of English: it sends your input as English and renders Claude's replies back in Chinese. A resilient DOM-level relay with a review-before-send guard, a code-block-preserving reply layout, and a three-engine translation layer (Google, DeepL, Gemini) with graceful fallback.",
+      tags: ['Chrome Extension', 'JavaScript', 'Manifest V3', 'DeepL', 'Gemini'],
+    },
+    {
+      title: 'Fleet 360° VR Training System',
+      github: null,
+      demo: null,
+      media: [],
+      description:
+        "A fleet 360° VR training-video system: a Unity C# walking-VR client with equirectangular playback, gaze-driven branch selection at route forks, and playback speed that follows the user's pace. Backed by durable PostgreSQL job orchestration (transactional outbox with FOR UPDATE SKIP LOCKED leases and crash recovery) and FFmpeg HLS packaging, sustaining a median 16,400 telemetry events/s.",
+      tags: ['Unity3D', 'C#', 'PostgreSQL', 'FFmpeg'],
+    },
+    {
       title: 'Personal Portfolio Website',
       github: 'https://github.com/ZhiqiaoGong/portfolio',
       demo: 'https://zhiqiaogong.com/',
@@ -75,7 +95,7 @@ export default function ProjectSection() {
     {
       title: 'Chinese Font Generation (GAN)',
       featured: true,
-      priority: 3,
+      priority: 4,
       github: 'https://github.com/ZhiqiaoGong/Pix-Font-Generative-Adversarial-Network',
       demo: null,
       media: ['OriginalAutoEncoder_test.mp4', 'BestGAN_test.mp4'],
@@ -86,7 +106,7 @@ export default function ProjectSection() {
     {
       title: '3D Streaming System',
       featured: true,
-      priority: 1,
+      priority: 2,
       github: 'https://github.com/ZhiqiaoGong/3D-Streaming-Demo',
       demo: null,
       media: ['3dstreaming-publisher.png', '3dstreaming-receiver.png'],
@@ -97,7 +117,7 @@ export default function ProjectSection() {
     {
       title: 'Manual Implementation of Neural Networks for Retinal Disease Detection',
       featured: true,
-      priority: 4,
+      priority: 5,
       github: 'https://github.com/ZhiqiaoGong/Manual-Implementation-of-Neural-Networks-for-Retinal-Disease-Detection',
       demo: null,
       media: ['oct_model_comparison.png', 'oct_densenet_training.png'],
@@ -108,7 +128,7 @@ export default function ProjectSection() {
     {
       title: 'AR Assembly Guidance System',
       featured: true,
-      priority: 2,
+      priority: 3,
       github: 'https://github.com/ZhiqiaoGong/AR-assembly-interaction-guidance-system',
       demo: null,
       media: ['arguidance-1.mp4', 'arguidance-2.mp4'],
