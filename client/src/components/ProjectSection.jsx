@@ -84,6 +84,24 @@ export default function ProjectSection() {
       tags: ['Unity3D', 'C#', 'PostgreSQL', 'FFmpeg'],
     },
     {
+      title: 'AI Job Application Drafter',
+      github: 'https://github.com/ZhiqiaoGong/ai-job-application-drafter',
+      demo: null,
+      media: [],
+      description:
+        "A Chrome extension (Manifest V3) that drafts answers to open-ended job application questions in place, with Shorter / Redo / Refine revisions that keep the original context. Field detection separates real questions from routine autofill and skips code editors and comboboxes, and each request sends only four things — system prompt, resume, job description, current question — for about 2,600 tokens. Runs on the user's own OpenAI key with no server and no tracking.",
+      tags: ['Chrome Extension', 'JavaScript', 'Manifest V3', 'OpenAI API', 'Prompt Engineering'],
+    },
+    {
+      title: 'SponsorLens — Job Sponsorship Checker',
+      github: 'https://github.com/ZhiqiaoGong/sponsorlens-job-sponsorship-checker',
+      demo: null,
+      media: [],
+      description:
+        'A Chrome extension (Manifest V3) that scans job listings for sponsorship, work authorization, citizenship, export control, and security clearance language, returning a color-coded verdict with the exact supporting text from the page. Rule-based analysis runs entirely on-device with no server or external AI calls, resolves conflicting policies conservatively, and is covered by a regression test suite.',
+      tags: ['Chrome Extension', 'JavaScript', 'Manifest V3', 'Text Analysis'],
+    },
+    {
       title: 'Personal Portfolio Website',
       github: 'https://github.com/ZhiqiaoGong/portfolio',
       demo: 'https://zhiqiaogong.com/',
