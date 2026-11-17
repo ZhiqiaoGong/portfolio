@@ -3,7 +3,7 @@ import Reveal from './Reveal';
 
 const ParticleHero = lazy(() => import('./ParticleHero'));
 
-const ROLES = ['Backend Engineer', 'Full-Stack Developer', 'XR Systems Builder'];
+const ROLES = ['Backend Engineer', 'Distributed Systems Engineer', 'AI Systems Engineer', 'AR/VR Developer'];
 
 // Types out `word`, pauses, deletes, then asks the parent to advance the role.
 // Resets cleanly if `word` changes mid-cycle (e.g. user clicks the particles).
@@ -94,7 +94,7 @@ export default function IntroSection() {
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-300">
           I’m Zhiqiao Gong, a software engineer who enjoys turning complex workflows into
-          reliable, practical products across web platforms, real-time systems, and immersive applications.
+          reliable, practical products across distributed backends, AI systems, and AR/VR applications.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a

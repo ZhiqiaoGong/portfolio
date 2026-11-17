@@ -14,7 +14,7 @@ const GROUPS = [
     items: ['PostgreSQL', 'MongoDB', 'Redis', 'Kafka', 'SQLite'],
   },
   {
-    label: 'Frontend & XR',
+    label: 'Frontend & AR/VR',
     items: ['React', 'Next.js', 'Tailwind CSS', 'MUI', 'HTML / CSS', 'Unity3D', 'MRTK3'],
   },
   {

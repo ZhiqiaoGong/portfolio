@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
 
 // Shape order must match ROLES in IntroSection:
-// 0 = Backend (database), 1 = Full-Stack (</>), 2 = XR (headset)
+// 0 = Backend (database), 1 = Distributed Systems (node cluster),
+// 2 = AI Systems (agent / robot head), 3 = AR/VR (shades)
 function makePointSets(count) {
   const scratch = new THREE.Vector3();
 
@@ -19,46 +20,110 @@ function makePointSets(count) {
     geometry.dispose();
   };
 
+  // parts: [geometry, fractionOfCount][]; the last part absorbs rounding.
+  const sampleParts = (parts) => {
+    const arr = new Float32Array(count * 3);
+    let start = 0;
+    parts.forEach(([g, fraction], i) => {
+      const n = i === parts.length - 1 ? count - start : Math.floor(count * fraction);
+      sampleInto(arr, start, n, g);
+      start += n;
+    });
+    return arr;
+  };
+
+  const tubeBetween = (a, b, radius) =>
+    new THREE.TubeGeometry(new THREE.LineCurve3(a, b), 8, radius, 6, false);
+
   // Stacked cylinders — classic database icon
-  const database = new Float32Array(count * 3);
-  {
-    const per = Math.floor(count / 3);
-    [-0.75, 0, 0.75].forEach((y, i) => {
+  const database = sampleParts(
+    [-0.75, 0, 0.75].map((y) => {
       const g = new THREE.CylinderGeometry(1, 1, 0.5, 48, 1, false);
       g.translate(0, y, 0);
-      sampleInto(database, i * per, i === 2 ? count - 2 * per : per, g);
-    });
-  }
+      return [g, 1 / 3];
+    })
+  );
 
-  // "</>" built from five thin bars
-  const code = new Float32Array(count * 3);
-  {
-    const bar = (cx, cy, rot, len = 1.25) => {
-      const g = new THREE.BoxGeometry(len, 0.16, 0.16);
-      g.rotateZ(rot);
-      g.translate(cx, cy, 0);
-      return g;
+  // Node cluster — a hub plus a hexagonal ring of nodes staggered in depth,
+  // linked by thin edges. Nodes take most of the points so they read as dots.
+  const cluster = (() => {
+    const hub = new THREE.Vector3(0, 0, 0);
+    const ring = Array.from({ length: 6 }, (_, i) => {
+      const a = (i / 6) * Math.PI * 2 + Math.PI / 6;
+      return new THREE.Vector3(Math.cos(a) * 1.55, Math.sin(a) * 1.2, i % 2 ? 0.45 : -0.45);
+    });
+    const parts = [];
+    const node = (p, r, fraction) => {
+      const g = new THREE.SphereGeometry(r, 20, 14);
+      g.translate(p.x, p.y, p.z);
+      parts.push([g, fraction]);
     };
-    const slash = new THREE.BoxGeometry(0.16, 2.1, 0.16);
-    slash.rotateZ(0.38);
-    const parts = [
-      bar(-1.15, 0.32, 0.5),
-      bar(-1.15, -0.32, -0.5),
-      bar(1.15, 0.32, -0.5),
-      bar(1.15, -0.32, 0.5),
-      slash,
+    node(hub, 0.34, 0.12);
+    ring.forEach((p) => node(p, 0.22, 0.065));
+    const edges = [
+      ...ring.map((p) => [hub, p]),
+      ...ring.map((p, i) => [p, ring[(i + 1) % 6]]),
     ];
-    const per = Math.floor(count / parts.length);
-    parts.forEach((g, i) =>
-      sampleInto(code, i * per, i === parts.length - 1 ? count - (parts.length - 1) * per : per, g)
+    edges.forEach(([a, b]) => parts.push([tubeBetween(a, b, 0.035), 0.49 / edges.length]));
+    return sampleParts(parts);
+  })();
+
+  // Agent — a robot head: rounded-square outline, two solid eyes, a smile,
+  // ears, and an antenna with a ball tip.
+  const agent = (() => {
+    const w = 2.4;
+    const h = 1.7;
+    const r = 0.38;
+    const cy = -0.2;
+    const outline = new THREE.Shape();
+    outline.moveTo(-w / 2 + r, cy - h / 2);
+    outline.lineTo(w / 2 - r, cy - h / 2);
+    outline.absarc(w / 2 - r, cy - h / 2 + r, r, -Math.PI / 2, 0, false);
+    outline.lineTo(w / 2, cy + h / 2 - r);
+    outline.absarc(w / 2 - r, cy + h / 2 - r, r, 0, Math.PI / 2, false);
+    outline.lineTo(-w / 2 + r, cy + h / 2);
+    outline.absarc(-w / 2 + r, cy + h / 2 - r, r, Math.PI / 2, Math.PI, false);
+    outline.lineTo(-w / 2, cy - h / 2 + r);
+    outline.absarc(-w / 2 + r, cy - h / 2 + r, r, Math.PI, Math.PI * 1.5, false);
+    const outlineCurve = new THREE.CatmullRomCurve3(
+      outline.getSpacedPoints(120).slice(0, -1).map((p) => new THREE.Vector3(p.x, p.y, 0)),
+      true
     );
-  }
+
+    const parts = [[new THREE.TubeGeometry(outlineCurve, 200, 0.085, 8, true), 0.47]];
+
+    [-1, 1].forEach((side) => {
+      const eye = new THREE.CircleGeometry(0.27, 32);
+      eye.translate(side * 0.55, -0.02, 0);
+      parts.push([eye, 0.1]);
+    });
+
+    const smile = new THREE.QuadraticBezierCurve3(
+      new THREE.Vector3(-0.42, -0.58, 0),
+      new THREE.Vector3(0, -0.82, 0),
+      new THREE.Vector3(0.42, -0.58, 0)
+    );
+    parts.push([new THREE.TubeGeometry(smile, 30, 0.06, 6, false), 0.07]);
+
+    [-1, 1].forEach((side) => {
+      const ear = new THREE.CylinderGeometry(0.2, 0.2, 0.22, 24);
+      ear.rotateZ(Math.PI / 2);
+      ear.translate(side * (w / 2 + 0.11), cy, 0);
+      parts.push([ear, 0.06]);
+    });
+
+    parts.push([tubeBetween(new THREE.Vector3(0, cy + h / 2, 0), new THREE.Vector3(0, 1.08, 0), 0.05), 0.07]);
+    const tip = new THREE.SphereGeometry(0.16, 20, 14);
+    tip.translate(0, 1.22, 0);
+    parts.push([tip, 0.07]);
+
+    return sampleParts(parts);
+  })();
 
   // Wraparound sport shades — one swept visor outline with a nose notch,
   // a heavy browline, and temples raking back. Sides curve rearward for the
   // wrap effect. Strokes read far better in a point cloud than solid volumes.
-  const headset = new Float32Array(count * 3);
-  {
+  const headset = (() => {
     const wrapZ = (x) => -0.14 * x * x;
     const v = (x, y) => new THREE.Vector3(x, y, wrapZ(x));
     const parts = [];
@@ -85,15 +150,10 @@ function makePointSets(count) {
       parts.push([new THREE.TubeGeometry(temple, 40, 0.07, 8, false), 0.16]);
     });
 
-    let start = 0;
-    parts.forEach(([g, fraction], i) => {
-      const n = i === parts.length - 1 ? count - start : Math.floor(count * fraction);
-      sampleInto(headset, start, n, g);
-      start += n;
-    });
-  }
+    return sampleParts(parts);
+  })();
 
-  return [database, code, headset];
+  return [database, cluster, agent, headset];
 }
 
 const VERTEX_SHADER = /* glsl */ `
@@ -108,13 +168,15 @@ const VERTEX_SHADER = /* glsl */ `
   attribute vec3 aShape0;
   attribute vec3 aShape1;
   attribute vec3 aShape2;
+  attribute vec3 aShape3;
   attribute float aRand;
   varying float vRand;
 
   vec3 shapeOf(float idx) {
     if (idx < 0.5) return aShape0;
     if (idx < 1.5) return aShape1;
-    return aShape2;
+    if (idx < 2.5) return aShape2;
+    return aShape3;
   }
 
   void main() {
@@ -166,15 +228,13 @@ function Particles({ roleIndex, reducedMotion, count, hovered }) {
   const invalidate = useThree((s) => s.invalidate);
 
   const { geometry, material } = useMemo(() => {
-    const [db, code, headset] = makePointSets(count);
+    const shapes = makePointSets(count);
     const rand = new Float32Array(count);
     for (let i = 0; i < count; i++) rand[i] = Math.random();
 
     const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(db.slice(), 3));
-    geo.setAttribute('aShape0', new THREE.BufferAttribute(db, 3));
-    geo.setAttribute('aShape1', new THREE.BufferAttribute(code, 3));
-    geo.setAttribute('aShape2', new THREE.BufferAttribute(headset, 3));
+    geo.setAttribute('position', new THREE.BufferAttribute(shapes[0].slice(), 3));
+    shapes.forEach((arr, i) => geo.setAttribute(`aShape${i}`, new THREE.BufferAttribute(arr, 3)));
     geo.setAttribute('aRand', new THREE.BufferAttribute(rand, 1));
 
     const mat = new THREE.ShaderMaterial({

@@ -47,7 +47,7 @@ export default function Sidebar() {
       {/* Desktop */}
       <aside className="hidden md:flex flex-col w-72 shrink-0 px-10 py-12 min-h-screen border-r border-gray-700 sticky top-0 self-start">
         <div className="text-3xl font-bold mb-4">Zhiqiao Gong</div>
-        <div className="text-gray-400 text-sm mb-6">Backend | Full-Stack | XR Systems</div>
+        <div className="text-gray-400 text-sm mb-6">Backend | Distributed Systems | AI Systems | AR/VR</div>
 
         <div className="flex gap-4 mb-10">
           {SOCIAL_LINKS.map(({ label, href, external }) => (
