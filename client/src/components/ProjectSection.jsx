@@ -107,8 +107,8 @@ export default function ProjectSection() {
       demo: 'https://zhiqiaogong.com/',
       media: [],
       description:
-        'A full-stack portfolio website built with React, Vite, and Tailwind CSS, with an Express + PostgreSQL backend supporting a real-time message board. Deployed on Vercel (frontend) and Render (backend).',
-      tags: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'PostgreSQL', 'Vercel', 'Render'],
+        'An interactive developer portfolio featuring a custom GLSL shader particle hero (React Three Fiber) that morphs 4,200 surface-sampled points across role-themed 3D geometries with cursor repulsion and on-demand rendering. Built with React, Vite, Tailwind CSS, and Lenis smooth scrolling, with a public message board powered by Vercel Serverless Functions and Neon PostgreSQL.',
+      tags: ['React', 'Three.js / R3F', 'GLSL Shaders', 'Tailwind CSS', 'Vercel Functions', 'Neon PostgreSQL'],
     },
     {
       title: 'Chinese Font Generation (GAN)',

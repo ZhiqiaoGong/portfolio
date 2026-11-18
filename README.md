@@ -63,6 +63,7 @@ portfolio/
     │       ├── IntroSection.jsx
     │       ├── ParticleHero.jsx
     │       ├── ExperienceSection.jsx
+    │       ├── SkillsSection.jsx
     │       ├── ProjectSection.jsx
     │       ├── MessageSection.jsx
     │       └── LeaveMessage.jsx
@@ -71,4 +72,4 @@ portfolio/
 
 ## Customize
 
-Update experience and project content in the component files under `client/src/components/`.
+Update experience, skills, and project content in the component files under `client/src/components/`.

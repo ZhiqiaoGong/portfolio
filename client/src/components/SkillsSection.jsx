@@ -3,23 +3,27 @@ import Reveal from './Reveal';
 const GROUPS = [
   {
     label: 'Languages',
-    items: ['TypeScript / JavaScript', 'Go', 'Python', 'SQL', 'C#', 'C / C++'],
+    items: ['Go', 'Python', 'Java', 'TypeScript / JavaScript', 'SQL', 'C#', 'C / C++'],
   },
   {
     label: 'Backend',
-    items: ['Node.js', 'Express', 'FastAPI', 'REST API', 'WebSocket', 'Stripe API', 'JWT', 'Zod'],
+    items: ['Spring Boot', 'FastAPI', 'Node.js', 'Express', 'REST & Webhooks', 'WebSocket & SSE', 'Asyncio'],
+  },
+  {
+    label: 'AI & ML Systems',
+    items: ['LLM Agents & Tool Calling', 'RAG', 'Evaluation Harnesses', 'LightGBM / Forecasting', 'OpenAI API', 'Pydantic'],
   },
   {
     label: 'Data & Messaging',
-    items: ['PostgreSQL', 'MongoDB', 'Redis', 'Kafka', 'SQLite'],
+    items: ['PostgreSQL', 'Kafka', 'Redis', 'SQLite (FTS5)', 'MongoDB'],
   },
   {
     label: 'Frontend & AR/VR',
-    items: ['React', 'Next.js', 'Tailwind CSS', 'MUI', 'HTML / CSS', 'Unity3D', 'MRTK3'],
+    items: ['React', 'Next.js', 'Tailwind CSS', 'HTML / CSS', 'Unity3D', 'MRTK3'],
   },
   {
     label: 'Cloud & Tooling',
-    items: ['AWS (EC2, S3)', 'Vercel', 'Render', 'Docker', 'GitHub Actions', 'CI/CD'],
+    items: ['AWS (EC2, S3)', 'Docker', 'Prometheus', 'GitHub Actions', 'CI/CD', 'Vercel / Render'],
   },
 ];
 

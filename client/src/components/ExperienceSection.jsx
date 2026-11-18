@@ -101,57 +101,60 @@ export default function ExperienceSection() {
     const data = [
       {
         time: 'Jan. 2026 – Present',
-        title: 'Web Application Developer',
+        title: 'Web Application Developer (Backend & ML Systems)',
         company: 'Party Eight',
         location: 'Hayward, CA',
-        github: 'https://github.com/ZhiqiaoGong/inventory-sync-system',
-        demo: 'https://inventory-sync-demo.onrender.com',
-        lead: 'Cross-platform inventory sync that keeps a Shopify + Etsy merchant from overselling.',
         bullets: [
-          'Normalized single source of truth, with SKUs tiered by count trustworthiness so only verifiable stock is written back — no bundle or pack/unit oversells.',
-          'Exactly-once order application — idempotent ingestion plus transactional outbox — sustaining **4,800 orders/s at p95 0.21 ms** in a multi-process race benchmark.',
-          '**Go + Kafka** delivery pipeline with idempotent write-backs, dead-letter recovery, and HMAC-verified webhooks; four-service stack on AWS EC2 via Docker Compose.',
+          '**Engineered an exactly-once multi-platform inventory sync core (Shopify/Etsy)** around a normalized stock table with **tiered SKU policies**, **replay-protected webhooks**, **atomic ledger/outbox transactions**, and **job-lease CAS concurrency control**, validated under multi-worker race and historical replay harnesses with **sub-millisecond local latency** and index-tuned drift reconciliation.',
+          '**Architected resilient delivery and operational automation in Go, Python, and Kafka on AWS EC2 (Docker Compose)**, combining **idempotent absolute-set retries**, **per-platform token-bucket rate limiting**, and **dead-letter recovery** with automated **safety-stock demand forecasting** and **rule-validated LLM root-cause diagnostics** for Prometheus alerts.',
         ],
-        tags: ['Node.js', 'Go', 'Kafka', 'Express', 'SQLite', 'Docker', 'REST API'],
+        tags: ['Go', 'Python', 'Apache Kafka', 'Distributed Systems', 'SQLite / PostgreSQL', 'AWS EC2', 'Docker', 'Prometheus', 'LLM Diagnostics', 'Forecasting'],
       },
       {
         time: 'Aug. 2025 – Feb. 2026',
-        title: 'Full-Stack Developer Volunteer',
+        title: 'Software Engineer',
         company: 'Qualcomm Institute',
         location: 'San Diego, CA',
         github: 'https://github.com/ZhiqiaoGong/medkit-store',
         demo: 'https://medkit-store.vercel.app',
-        lead: 'A full-stack commerce platform for configurable medical kits.',
         bullets: [
-          '**Next.js** storefront on Vercel — kit builder, live quotes, auth, and checkout — backed by an Express + MongoDB API.',
-          'Inventory consistency under concurrent checkout via atomic conditional decrements and Stripe-session compensation on failure, verified for **zero oversell**.',
-          'Version-based Redis cache invalidation reaching **1,870 RPS at p95 0.9 ms**, plus idempotent Stripe-webhook reconciliation against duplicate fulfillment.',
+          '**Built a real-time streaming voice and task-guidance assistant**, combining **low-latency conversational synthesis** with **task-state-aware context routing** and **automated LLM evaluation pipelines** to improve multi-turn accuracy and token efficiency over hybrid RAG baselines.',
+          '**Engineered a full-stack configurable medical kit and fulfillment platform (Next.js, Express, MongoDB, Redis)**, enforcing **zero-oversell atomic state updates**, **O(1) version-keyed cache invalidation**, and **idempotent webhook state machines** under concurrent load.',
         ],
-        tags: ['Next.js', 'Node.js', 'Express', 'MongoDB', 'Redis', 'Stripe API'],
+        tags: ['WebSockets', 'Large Language Models (LLM)', 'Python', 'Node.js / Express', 'Next.js / TypeScript', 'Redis', 'MongoDB'],
       },
       {
         time: 'Jun. 2024 – Jun. 2025',
         title: 'Software Engineer Intern',
-        company: 'UCSD Human-centered eXtended Intelligence Lab / Design Lab',
+        company: 'UC San Diego (Design Lab / HXI Lab)',
         location: 'San Diego, CA',
-        lead: 'An AI-powered AR medical assistant on a mixed-reality headset.',
         bullets: [
-          'Bidirectional WebSocket audio streaming — sequence-numbered binary frames with jitter buffering upstream, gapless TTS playback downstream — cutting uplink bandwidth **26%** versus JSON transport.',
-          'Cut end-of-speech-to-reply latency from **3.2 s to 2.2 s (p95)** with voice-activity detection and endpointing, plus **54 ms** barge-in and lossless recovery from mid-reply network drops.',
+          '**Developed a multimodal, voice-enabled medical AI assistant and two-tier safety gateway**, supporting **bidirectional low-latency audio streaming**, **spatial UI**, and **deterministic red-flag / LLM logprobs triage** for fixed emergency handoffs (911 / Poison Help / 988).',
+          '**Grounded clinical and medication Q&A in schema-typed tool calls and bounded retrieval**, normalizing drug entities via **RxNorm** to cross-check **DDInter/openFDA interactions** and serving verified **MedlinePlus passages via SQLite FTS5** with **opt-in per-person memory isolation** and **Wilson-interval statistical release gates**.',
         ],
-        tags: ['Unity3D', 'MRTK3', 'C#', 'Node.js', 'WebSocket'],
+        tags: ['Java', 'Spring Boot', 'Python', 'SQLite (FTS5)', 'Large Language Models (LLM)', 'RAG', 'RxNorm / openFDA APIs', 'Multimodal / Spatial UI'],
       },
       {
         time: 'Jul. 2023 – Sep. 2023',
         title: 'Software Engineer Intern',
         company: 'Baidu',
         location: 'Beijing, China',
-        lead: 'An async LLM evaluation pipeline built for throughput and safe resumes.',
         bullets: [
-          'Semaphore-bounded concurrency and token-bucket rate limiting raised benchmark throughput **12×**; backoff-with-jitter retries survived a **30% HTTP 429 storm** with zero lost results.',
-          'PostgreSQL results store with unique-key idempotent resume, and a composite index cutting query p95 by **96% (19 ms → 0.7 ms over 300k rows)**; served over FastAPI + Redis with SSE live progress.',
+          '**Engineered an async LLM evaluation harness and backend service (FastAPI, PostgreSQL, Redis, SSE)** featuring **semaphore-bounded, rate-limited fan-out** and **jittered backoff retries** that sustained high throughput with **zero drops under HTTP 429 storms**; designed **idempotent call caching and resume schemas** with **composite index tuning** for sub-millisecond history queries.',
+          '**Developed statistical grading, RAG diagnostics, and sandboxed execution pipelines** across foundation models (ERNIE, Llama-2), combining **McNemar/bootstrap CI testing** and **dual-grader LLM-judge calibration** against blind human labels with **RAG hallucination audits** and **program-aided Python execution** for complex reasoning benchmarks.',
         ],
-        tags: ['Python', 'asyncio', 'httpx', 'FastAPI', 'PostgreSQL', 'Redis'],
+        tags: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Server-Sent Events (SSE)', 'Large Language Models (LLM)', 'Asyncio', 'Statistical Evaluation'],
+      },
+      {
+        time: 'Jun. 2021 – May 2022',
+        title: 'Virtual Reality Research Assistant',
+        company: 'Shandong University',
+        location: 'Jinan, China',
+        bullets: [
+          '**Built a 360° VR client in Unity (C#)** implementing **redirected walking algorithms** for continuous locomotion in constrained physical spaces, **equirectangular video playback**, and **gaze-driven branching**.',
+          '**Engineered the media ingest and telemetry backend (PostgreSQL, FFmpeg)** supporting **checksum-verified HLS packaging**, **fault-tolerant job scheduling**, and **high-throughput event logging**.',
+        ],
+        tags: ['C#', 'Unity', 'PostgreSQL', 'FFmpeg / HLS', 'Virtual Reality (VR)'],
       },
     ];
   
@@ -185,8 +188,10 @@ export default function ExperienceSection() {
               </h3>
               <ExperienceLinks github={item.github} demo={item.demo} />
 
-              <p className="mt-3 font-medium leading-relaxed text-gray-100">{item.lead}</p>
-              <ul className="mt-2 space-y-1.5">
+              {item.lead && (
+                <p className="mt-3 font-medium leading-relaxed text-gray-100">{item.lead}</p>
+              )}
+              <ul className={`${item.lead ? 'mt-2' : 'mt-3'} space-y-1.5`}>
                 {item.bullets.map((bullet, idx) => (
                   <li key={idx} className="flex gap-2.5 leading-relaxed text-gray-300">
                     <span aria-hidden="true" className="mt-[0.6rem] h-1 w-1 flex-none rounded-full bg-blue-400" />
